@@ -5,13 +5,15 @@
 </head>
 <body>
 <table>
-<%=@person.attributes.map { 
-  |key, value| "<th>#{key}</th>"
-  }.join("")%>
-  <tr>
-  <%=@person.attributes.map { 
-  |key, value| "<td>#{value}</td>"
-  }.join("")%>
+<tr>
+<%@person.attributes.keys.each do |key| %>
+  <th><%=key%></th>
+  <%end%>
+  </tr>
+ <tr>
+<%@person.attributes.values.each do |value| %>
+  <td><%=value%></td>
+  <%end%>
   </tr>
 </table>
 

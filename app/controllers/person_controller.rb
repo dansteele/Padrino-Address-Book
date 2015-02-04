@@ -5,13 +5,23 @@ AddressBook::App.controllers :person do
     render 'people/all'
   end
 
+  get '/edit' do
+    @person = Person.find(params[:id])
+    render 'people/edit'
+  end
+
+  post '/update/:id' do
+    Person.find(params[:id]).update(params)
+  end
+
   get '/new' do
     render 'people/new_person'
   end
 
+
   post '/create' do
     Person.create(params)
-    redirect '/#{params[:first_name]}'
+    redirect "/people/#{params[:first_name]}"
   end
 
   get "/:first_name" do

@@ -6,6 +6,8 @@ module AddressBook
 
     enable :sessions
 
+    set :protect_from_csrf, false
+
     ##
     # Caching support.
     #

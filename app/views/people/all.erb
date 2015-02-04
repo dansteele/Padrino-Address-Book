@@ -5,16 +5,20 @@
 </head>
 <body>
 <table>
-  <%=@people.first.attributes.map { 
-    |key, value| "<th>#{key}</th>"
-    }.join("")%>
+  <tr>
+    <% @people.first.attributes.keys.each do |header| %>
+      <th><%= header %></th>
+    <% end %>
+  </tr>
+
   <% @people.each do |person| %>
     <tr>
-    <%=person.attributes.map { 
-    |key, value| "<td>#{value}</td>"
-    }.join("")%>
-      </tr>
-  <%end%>
+    <% person.attributes.values.each do |value| %>
+      <td><%= value %></td>
+    <% end %> 
+    </tr>
+    <% end %>
+
 </table>
 </body>
 </html>

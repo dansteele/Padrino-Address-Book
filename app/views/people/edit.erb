@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit <%= @person.first_name %></title>
+</head>
+<body>
+
+<form method="POST" action="/person/update/<%=@person.id%>">
+
+<fieldset>
+  <label for="first_name">First Name</label/>
+  <input type="text" name="first_name" value="<%= @person.first_name %>" />
+</fieldset>
+
+<fieldset>
+  <label for="last_name">Last Name</label/>
+  <input type="text" name="last_name" value="<%= @person.last_name %>" />
+</fieldset>
+
+<fieldset>
+  <label for="phone">Phone</label/>
+  <input type="text" name="phone" value="<%= @person.phone %>" />
+</fieldset>
+
+<fieldset>
+  <label for="email">Email</label/>
+  <input type="text" name="email" value="<%= @person.email %>" />
+</fieldset>
+
+<fieldset>
+  <label for="twitter">Twitter</label/>
+  <input type="text" name="twitter" value="<%= @person.twitter %>" />
+</fieldset>
+
+
+
+<input type="submit" value="Save"/>
+
+</body>
+</html>
