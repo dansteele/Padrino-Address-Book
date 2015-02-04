@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All people</title>
+</head>
+<body>
+<table>
+  <%=@people.first.attributes.map { 
+    |key, value| "<th>#{key}</th>"
+    }.join("")%>
+  <% @people.each do |person| %>
+    <tr>
+    <%=person.attributes.map { 
+    |key, value| "<td>#{value}</td>"
+    }.join("")%>
+    </tr>
+  <%end%>
+</table>
+</body>
+</html>
