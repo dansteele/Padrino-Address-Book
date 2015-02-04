@@ -1,7 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_config.rb')
-require 'pry'
+require "pry"
+require "database_cleaner"
+
 
 describe "Person Model" do
+  before do 
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
+  end
+
   it 'can construct a new instance' do
     @person = Person.new
     refute_nil @person
@@ -21,6 +28,15 @@ describe "Person Model" do
     get '/person/Dan'
     assert last_response.ok?
     last_response.body.must_match(/Dan/)
+  end
+
+  it "should render the create page" do 
+    get '/person/create'
+    assert last_response.ok?
+  end
+
+  after do
+    DatabaseCleaner.clean
   end
 
 end

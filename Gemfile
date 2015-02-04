@@ -22,6 +22,7 @@ gem 'sqlite3'
 gem 'minitest', :require => 'minitest/autorun', :group => 'test'
 gem 'rack-test', :require => 'rack/test', :group => 'test'
 gem 'pry'
+gem 'database_cleaner'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'

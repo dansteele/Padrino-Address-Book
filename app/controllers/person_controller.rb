@@ -5,6 +5,10 @@ AddressBook::App.controllers :person do
     render 'people/all'
   end
 
+  get '/create' do
+    render 'people/create'
+  end
+
   get "/:first_name" do
     @person = Person.find_by_first_name(params[:first_name])
     #binding.pry
