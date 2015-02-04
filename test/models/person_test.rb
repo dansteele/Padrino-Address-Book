@@ -31,8 +31,15 @@ describe "Person Model" do
   end
 
   it "should render the create page" do 
-    get '/person/create'
+    get '/person/new'
     assert last_response.ok?
+  end
+
+  it "should create a new person" do
+    assert 0, Person.count
+    post '/person/create', {:first_name => "Dan", :last_name => "Steele",
+      :phone => "0787234235", :email => "danielsteele@hotmail.co.uk", :twitter => "@dan"}
+    assert 1, Person.count 
   end
 
   after do

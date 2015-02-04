@@ -5,8 +5,13 @@ AddressBook::App.controllers :person do
     render 'people/all'
   end
 
-  get '/create' do
-    render 'people/create'
+  get '/new' do
+    render 'people/new_person'
+  end
+
+  post '/create' do
+    Person.create(params)
+    redirect '/#{params[:first_name]}'
   end
 
   get "/:first_name" do
