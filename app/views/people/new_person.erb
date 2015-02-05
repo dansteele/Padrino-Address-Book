@@ -4,37 +4,37 @@
   <title></title>
 </head>
 <body>
-  <form method="POST" action="/person/create">
 
-<fieldset>
-  <label for="first_name">First Name</label/>
-  <input type="text" name="first_name" />
-</fieldset>
+<% form_for @person , "/person/create" do |form| %>
+  <% field_set_tag do %>
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  <% end %>
 
+  <% field_set_tag do %>
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  <% end %>
 
-<fieldset>
-  <label for="last_name">Last Name</label/>
-  <input type="text" name="last_name" />
-</fieldset>
+  <% field_set_tag do %>
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  <% end %>
 
-<fieldset>
-  <label for="phone">Phone</label/>
-  <input type="text" name="phone"/>
-</fieldset>
-
-<fieldset>
-  <label for="email">Email</label/>
-  <input type="text" name="email"/>
-</fieldset>
-
-<fieldset>
-  <label for="twitter">Twitter</label/>
-  <input type="text" name="twitter"/>
-</fieldset>
+  <% field_set_tag do %>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  <% end %>
 
 
+  <% field_set_tag do %>
+    <%= form.label :twitter %>
+    <%= form.text_field :twitter %>
+  <% end %>
 
-<input type="submit" value="Save"/>
+
+  <%= form.submit "Save" %>
+<%end%>
 
 </form>
 </body>

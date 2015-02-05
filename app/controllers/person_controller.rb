@@ -17,17 +17,18 @@ end
 
   post '/login' do
     user = User.find_by_username(params[:username])
-    if params[:password] == user.password
-      session[:logged_in] = true
-      redirect 'person/all'
-    else
-      flash[:bad_login] = "Bad login."
-      redirect 'person/login'
+    unless user.nil?
+      if user.params[:password] == user.password
+        session[:logged_in] = true
+        redirect 'person/all'
+      end
     end
+  flash[:bad_login] = "Bad login."
+  redirect 'person/login'
   end
 
   get '/signup' do
-    render 'users/sign_up'
+    render :'people/sign_up'
   end
 
   post '/signup' do
@@ -42,23 +43,27 @@ end
     render 'people/all'
   end
 
-  get '/edit' do
+  get '/edit/:id' do
     @person = Person.find(params[:id])
-    render 'people/edit'
+    render :'people/edit'
   end
 
   post '/update/:id' do
-    Person.find(params[:id]).update(params)
+    @person = Person.find(params[:id])
+    @person.update(params[:person])
+    redirect 'person/all'
   end
 
   get '/new' do
+    @person = Person.new
     render 'people/new_person'
   end
 
 
   post '/create' do
-    Person.create(params)
-    redirect "/people/#{params[:first_name]}"
+    Person.create(params[:person])
+    binding.pry
+    redirect "/person/#{params[:person][:first_name]}"
   end
 
   get "/:first_name" do

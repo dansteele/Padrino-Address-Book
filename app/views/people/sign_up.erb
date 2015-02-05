@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>People Login</title>
+  <title>Sign up</title>
 </head>
 <body>
-<form method="POST" action="/person/login">
+
 <% if @message %>
   <p><%=@message%></form>
 <% end %>
 
+<% form_tag "/person/signup" do%>
+  <% field_set_tag do %>
+    <%= label_tag :name %>
+    <%= text_field_tag :name %>
+  <% end %>
 
-<% form_tag "/person/login" do%>
   <% field_set_tag do %>
     <%= label_tag :username %>
     <%= text_field_tag :username %>
   <% end %>
+
 
   <% field_set_tag do %>
     <%= label_tag :password %>
     <%= text_field_tag :password %>
   <% end %>
 
-  <%= submit_tag "Login"%>
-  <% end %>
+  <%= submit_tag "Save" %>
 
-<p><a href="/person/signup">Sign up</a></p>
-
+<%end%>
 </body>
 </html>

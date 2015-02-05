@@ -23,6 +23,7 @@ gem 'minitest', :require => 'minitest/autorun', :group => 'test'
 gem 'rack-test', :require => 'rack/test', :group => 'test'
 gem 'pry'
 gem 'database_cleaner'
+gem "rack", "< 1.6.0"
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
