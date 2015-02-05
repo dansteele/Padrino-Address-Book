@@ -1,13 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_config.rb')
-require "pry"
-require "database_cleaner"
+
+
 
 
 describe "Person Model" do
-  before do 
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-  end
+
 
   it 'can construct a new instance' do
     @person = Person.new
@@ -39,7 +36,7 @@ describe "Person Model" do
     assert 0, Person.count
     post '/person/create', {:first_name => "Dan", :last_name => "Steele",
       :phone => "0787234235", :email => "danielsteele@hotmail.co.uk", :twitter => "@dan"}
-    assert 1, Person.count 
+    assert_equal 1, Person.count 
   end
 
   it "should render the edit page" do
@@ -52,15 +49,20 @@ describe "Person Model" do
   it "should update a person" do
     Person.create(:first_name => "Dan", :last_name => "Steele",
       :phone => "0787234235", :email => "danielsteele@hotmail.co.uk", :twitter => "@dan")
-    assert 1, Person.count
+    assert_equal 1, Person.count
 
     post '/person/update/1', {:last_name => "Smith"}
-    assert "Smith", Person.find(1).last_name
-
+    assert_equal "Smith", Person.find(1).last_name
   end
 
-  after do
-    DatabaseCleaner.clean
+  it "should delete a person" do 
+    Person.create(:first_name => "Dan", :last_name => "Steele",
+      :phone => "0787234235", :email => "danielsteele@hotmail.co.uk", :twitter => "@dan")
+    assert_equal 1, Person.count
+    post '/person/delete', { :id => 1 }
+    assert_equal 0, Person.count
   end
+
+
 
 end

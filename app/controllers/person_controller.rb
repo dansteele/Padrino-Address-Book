@@ -1,5 +1,30 @@
 AddressBook::App.controllers :person do
 
+
+before do
+  # binding.pry
+  unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login"
+    redirect 'person/login'
+  end
+end
+
+  get '/login' do
+    #binding.pry
+    @message = flash[:bad_login]
+    render 'people/login'
+  end
+
+  post '/login' do
+    @login = {:username => "dan", :password => "password"}
+    if params[:username] == @login[:username] && params[:password] == @login[:password]
+      session[:logged_in] = true
+      redirect 'person/all'
+    else
+      flash[:bad_login] = "Bad login."
+      redirect 'person/login'
+    end
+  end
+
   get '/all' do
     @people = Person.all
     render 'people/all'
@@ -30,6 +55,8 @@ AddressBook::App.controllers :person do
     render 'people/person'
   end
 
-
+  post '/delete' do
+    Person.find(params[:id]).destroy
+  end
 
 end

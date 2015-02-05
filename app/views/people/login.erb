@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>People Login</title>
+</head>
+<body>
+<form method="POST" action="/person/login">
+<% if @message %>
+  <p><%=@message%></form>
+<% end %>
+  <fieldset>
+    <label for="username">Username</label/>
+    <input type="text" name="username" />
+  </fieldset>
+
+
+  <fieldset>
+    <label for="password">Password</label/>
+    <input type="text" name="password" />
+  </fieldset>
+
+<input type="submit" value="Login"/>
+
+<p><a href="/person/signup">Sign up</a></p>
+
+</body>
+</html>

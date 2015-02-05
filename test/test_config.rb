@@ -1,10 +1,16 @@
 RACK_ENV = 'test' unless defined?(RACK_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 Dir[File.expand_path(File.dirname(__FILE__) + "/../app/helpers/**/*.rb")].each(&method(:require))
+require "database_cleaner"
+require "pry"
 
 class MiniTest::Spec
   include Rack::Test::Methods
 
+  before do 
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
+  end
   # You can use this method to custom specify a Rack app
   # you want rack-test to invoke:
   #
@@ -14,6 +20,10 @@ class MiniTest::Spec
   #     set :foo, :bar
   #   end
   #
+
+  after do
+    DatabaseCleaner.clean
+  end
   def app(app = nil, &blk)
     @app ||= block_given? ? app.instance_eval(&blk) : app
     @app ||= Padrino.application
