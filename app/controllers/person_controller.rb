@@ -3,7 +3,8 @@ AddressBook::App.controllers :person do
 
 before do
   # binding.pry
-  unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login"
+  unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login" ||
+    env["REQUEST_PATH"] == "/person/signup"
     redirect 'person/login'
   end
 end
@@ -15,13 +16,24 @@ end
   end
 
   post '/login' do
-    @login = {:username => "dan", :password => "password"}
-    if params[:username] == @login[:username] && params[:password] == @login[:password]
+    user = User.find_by_username(params[:username])
+    if params[:password] == user.password
       session[:logged_in] = true
       redirect 'person/all'
     else
       flash[:bad_login] = "Bad login."
       redirect 'person/login'
+    end
+  end
+
+  get '/signup' do
+    render 'users/sign_up'
+  end
+
+  post '/signup' do
+    if User.create(params)
+      session[:logged_in] = true
+      redirect 'person/all'
     end
   end
 
