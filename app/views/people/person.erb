@@ -17,7 +17,7 @@
   </tr>
 </table>
 
-<a href="/person/edit/<%= @person.id %>">edit</a>
+<%= link_to "Edit", url_for( :people, :edit, :id => @person.id )%>
 
 </body>
 </html>

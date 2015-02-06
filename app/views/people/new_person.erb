@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<% form_for @person , "/person/create" do |form| %>
+<% form_for @person , url_for(:people,:create ) do |form| %>
   <% field_set_tag do %>
     <%= form.label :first_name %>
     <%= form.text_field :first_name %>

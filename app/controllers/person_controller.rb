@@ -1,78 +1,79 @@
-AddressBook::App.controllers :person do
+AddressBook::App.controllers :people, :map => :person do
 
 
 before do
-  # binding.pry
+  #binding.pry
+  @person = Person.find(params[:id]) if params[:id]
   unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login" ||
     env["REQUEST_PATH"] == "/person/signup"
-    redirect 'person/login'
+    redirect url_for(:people, :login)
   end
 end
 
-  get '/login' do
-    #binding.pry
+  get :login do
     @message = flash[:bad_login]
     render 'people/login'
   end
 
-  post '/login' do
+  post :login do
     user = User.find_by_username(params[:username])
     unless user.nil?
-      if user.params[:password] == user.password
+      #binding.pry
+      if params[:password] == user.password
         session[:logged_in] = true
-        redirect 'person/all'
+        redirect url_for(:people, :all)
       end
     end
   flash[:bad_login] = "Bad login."
-  redirect 'person/login'
+  redirect url_for(:people, :login)
   end
 
-  get '/signup' do
+  get :signup do
     render :'people/sign_up'
   end
 
-  post '/signup' do
-    if User.create(params)
+  post :signup do
+    if User.create(params[:person])
       session[:logged_in] = true
       redirect 'person/all'
     end
   end
 
-  get '/all' do
+  get :all do
     @people = Person.all
     render 'people/all'
   end
 
-  get '/edit/:id' do
+  get :edit, :map => ":id/edit" do
     @person = Person.find(params[:id])
-    render :'people/edit'
+    render :edit
   end
 
-  post '/update/:id' do
+  put :update, :map => ":id" do
     @person = Person.find(params[:id])
     @person.update(params[:person])
-    redirect 'person/all'
+    redirect url_for(:people, :all)
   end
 
-  get '/new' do
+  get :new do
     @person = Person.new
     render 'people/new_person'
   end
 
 
-  post '/create' do
+  post :create, :map => "" do
     Person.create(params[:person])
-    binding.pry
-    redirect "/person/#{params[:person][:first_name]}"
-  end
-
-  get "/:first_name" do
-    @person = Person.find_by_first_name(params[:first_name])
     #binding.pry
-    render 'people/person'
+    redirect url_for(:people, :all, :with => params[:person][:id])
   end
 
-  post '/delete' do
+  get :index, :with => :id do
+    @person = Person.find(params[:id])
+    #binding.pry
+    render :person
+  end
+
+  post :delete, :map => ':id' do
     Person.find(params[:id]).destroy
   end
 

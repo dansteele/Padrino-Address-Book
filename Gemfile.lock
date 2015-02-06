@@ -19,6 +19,8 @@ GEM
     coderay (1.1.0)
     database_cleaner (1.4.0)
     erubis (2.7.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
     http_router (0.11.1)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
@@ -100,6 +102,7 @@ DEPENDENCIES
   activerecord (>= 3.1)
   database_cleaner
   erubis (~> 2.7.0)
+  factory_girl
   minitest
   padrino (= 0.12.4)
   pry

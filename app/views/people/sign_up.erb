@@ -9,21 +9,22 @@
   <p><%=@message%></form>
 <% end %>
 
-<% form_tag "/person/signup" do%>
+<% form_for :user, url_for( :people, :signup) do |form|%>  
+
   <% field_set_tag do %>
-    <%= label_tag :name %>
-    <%= text_field_tag :name %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   <% end %>
 
   <% field_set_tag do %>
-    <%= label_tag :username %>
-    <%= text_field_tag :username %>
+    <%= form.label :username %>
+    <%= form.text_field :username %>
   <% end %>
 
 
   <% field_set_tag do %>
-    <%= label_tag :password %>
-    <%= text_field_tag :password %>
+    <%= form.label :password %>
+    <%= form.text_field :password %>
   <% end %>
 
   <%= submit_tag "Save" %>

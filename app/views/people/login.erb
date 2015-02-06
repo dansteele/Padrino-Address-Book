@@ -4,13 +4,12 @@
   <title>People Login</title>
 </head>
 <body>
-<form method="POST" action="/person/login">
 <% if @message %>
   <p><%=@message%></form>
 <% end %>
 
 
-<% form_tag "/person/login" do%>
+<% form_tag url_for(:people, :login ) do%>
   <% field_set_tag do %>
     <%= label_tag :username %>
     <%= text_field_tag :username %>
@@ -24,7 +23,9 @@
   <%= submit_tag "Login"%>
   <% end %>
 
-<p><a href="/person/signup">Sign up</a></p>
+
+<%= link_to "Sign up", url_for( :people, :signup)%>
+
 
 </body>
 </html>
