@@ -57,7 +57,12 @@ end
 
   get :new do
     @person = Person.new
-    render 'people/new_person'
+    render :preferences
+  end
+
+  get :preferences do
+    @person = Person.find(params[:person])
+    render :preferences
   end
 
 

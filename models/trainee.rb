@@ -1,0 +1,3 @@
+class Trainee < Person
+
+end

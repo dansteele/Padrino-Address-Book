@@ -33,7 +33,12 @@
   <% end %>
 
 
-  <%= form.submit "Save" %>
+  <% field_set_tag do %>
+    <%= form.label :type %>
+    <%= form.text_field :type %>
+  <% end %>
+
+  <%= form.submit "Next" %>
 <%end%>
 
 </form>

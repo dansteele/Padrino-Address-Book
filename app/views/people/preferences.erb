@@ -1,0 +1,16 @@
+<% if @person.type == "Instructor" %>
+
+  <% field_set_tag do %>
+    <%= form.label :years_experience %>
+    <%= form.text_field :years_experience %>
+  <% end %>
+
+<% else %>
+  <% field_set_tag do %>
+    <%= form.label :favourite_text_editor %>
+    <%= form.text_field :favourite_text_editor %>
+  <% end %>
+
+<%end%>
+
+<%= form.submit "Next" %>
