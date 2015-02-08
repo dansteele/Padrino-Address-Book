@@ -1,14 +1,14 @@
 AddressBook::App.controllers :people, :map => :person do
+  require "searchlogic"
 
-
-before do
-  #binding.pry
-  @person = Person.find(params[:id]) if params[:id]
-  unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login" ||
-    env["REQUEST_PATH"] == "/person/signup"
-    redirect url_for(:people, :login)
+  before do
+    #binding.pry
+    @person = Person.find(params[:id]) if params[:id]
+    unless session[:logged_in] || env["REQUEST_PATH"] == "/person/login" ||
+      env["REQUEST_PATH"] == "/person/signup"
+      redirect url_for(:people, :login)
+    end
   end
-end
 
   get :login do
     @message = flash[:bad_login]
@@ -33,15 +33,28 @@ end
   end
 
   post :signup do
-    if User.create(params[:person])
-      session[:logged_in] = true
-      redirect 'person/all'
+    binding.pry
+    unless User.find_by_username(params[:user][:username])
+      if User.create(params[:user])
+        session[:logged_in] = true
+        redirect 'person/all'
+      end
     end
   end
 
   get :all do
     @people = Person.all
     render 'people/all'
+  end
+
+  get :search do
+    @letter_array = ("A".."Z").to_a
+    render :search
+  end
+
+  get :find, :with => :letter do
+    person = Person.last_name_begins_with(:letter)
+    redirect url_for(:index, :with => person.id)
   end
 
   get :edit, :map => ":id/edit" do
@@ -81,5 +94,6 @@ end
   post :delete, :map => ':id' do
     Person.find(params[:id]).destroy
   end
+
 
 end

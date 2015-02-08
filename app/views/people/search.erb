@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search</title>
+</head>
+<body>
+<% @letter_array.each do |letter| %>
+  <a href="<%= url_for(:people, :find, :with => letter)%>"/>
+
+</body>
+</html>
