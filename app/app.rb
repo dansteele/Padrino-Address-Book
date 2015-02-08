@@ -8,6 +8,10 @@ module AddressBook
 
     set :protect_from_csrf, false
 
+    get '/' do
+      redirect url_for(:people, :all)
+    end
+
     ##
     # Caching support.
     #
