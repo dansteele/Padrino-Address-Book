@@ -18,10 +18,9 @@
     <tr>
     <% person.attributes.values.each_with_index do |value, index| %>
       <td>
+        
       <% if index == 1%>
-        <a href="/person/<%=@people[index].id%>">
-        <%= value %>
-        </a>
+        <%= link_to value, url_for(:people, :index, :id => person.id )%>
       <% else %>
         <%= value %>
       <% end %>

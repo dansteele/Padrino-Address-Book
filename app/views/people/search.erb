@@ -5,7 +5,7 @@
 </head>
 <body>
 <% @letter_array.each do |letter| %>
-  <a href="<%= url_for(:people, :find, :with => letter)%>"/>
-
+  <%= link_to url_for(:people, :find, :with => letter)%>
+<%end %>
 </body>
 </html>

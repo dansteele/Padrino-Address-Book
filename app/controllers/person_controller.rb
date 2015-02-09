@@ -1,5 +1,5 @@
 AddressBook::App.controllers :people, :map => :person do
-  require "searchlogic"
+  
 
   before do
     #binding.pry
@@ -53,8 +53,9 @@ AddressBook::App.controllers :people, :map => :person do
   end
 
   get :find, :with => :letter do
-    person = Person.last_name_begins_with(:letter)
-    redirect url_for(:index, :with => person.id)
+    binding.pry
+    people = Person.where("last_name LIKE ?", "#{:letter}%")
+    redirect url_for(:index, :with => people.id)
   end
 
   get :edit, :map => ":id/edit" do

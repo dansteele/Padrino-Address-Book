@@ -17,7 +17,6 @@ gem 'rake'
 gem 'erubis', '~> 2.7.0'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
 gem 'sqlite3'
-gem "searchlogic"
 
 # Test requirements
 gem 'minitest', :require => 'minitest/autorun', :group => 'test'
