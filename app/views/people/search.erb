@@ -4,8 +4,12 @@
   <title>Search</title>
 </head>
 <body>
+<% if @message %>
+  <p><%=@message%></form>
+<% end %>
+
 <% @letter_array.each do |letter| %>
-  <%= link_to url_for(:people, :find, :with => letter)%>
+  <%= link_to letter, url_for(:people, :find, :letter => letter)%>
 <%end %>
 </body>
 </html>

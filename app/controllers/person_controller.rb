@@ -37,14 +37,14 @@ AddressBook::App.controllers :people, :map => :person do
     unless User.find_by_username(params[:user][:username])
       if User.create(params[:user])
         session[:logged_in] = true
-        redirect 'person/all'
+        redirect url_for(:people, :all)
       end
     end
   end
 
   get :all do
     @people = Person.all
-    render 'people/all'
+    render :all
   end
 
   get :search do
@@ -53,9 +53,8 @@ AddressBook::App.controllers :people, :map => :person do
   end
 
   get :find, :with => :letter do
-    binding.pry
-    people = Person.where("last_name LIKE ?", "#{:letter}%")
-    redirect url_for(:index, :with => people.id)
+    @people = Person.where("last_name LIKE ?", "#{params[:letter]}%")
+    render :all
   end
 
   get :edit, :map => ":id/edit" do
