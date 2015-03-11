@@ -33,7 +33,6 @@ AddressBook::App.controllers :people, :map => :person do
   end
 
   post :signup do
-    binding.pry
     unless User.find_by_username(params[:user][:username])
       if User.create(params[:user])
         session[:logged_in] = true
