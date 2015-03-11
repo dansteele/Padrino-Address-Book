@@ -5,6 +5,7 @@
 </head>
 <body>
 <table>
+<%= link_to "Filter", url_for(:people, :search)%>
   <tr>
     <% @people.first.attributes.keys.each do |header| %>
       <th>
